@@ -1,6 +1,12 @@
 package med.voll.api.medico;
 
+import jakarta.validation.Valid;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 public record DadosListagemMedico (
+        Long id,
         String nome,
         String email,
         String crm,
@@ -8,7 +14,13 @@ public record DadosListagemMedico (
 ) {
 
     public DadosListagemMedico(Medico medico) {
-        this(medico.getNome(), medico.getEmail(), medico.getCrm(), medico.getEspecialidade());
+        this(medico.getId(), medico.getNome(), medico.getEmail(), medico.getCrm(), medico.getEspecialidade());
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
+
     }
 
 }
